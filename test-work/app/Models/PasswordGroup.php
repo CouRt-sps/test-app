@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PasswordGroup extends Model
 {
     use HasFactory;
+    protected $guarded = false;
 
     protected $fillable = ['name'];
 

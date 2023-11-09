@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Password;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PasswordController extends Controller
 {
-    public function listPassword(): object
+    public function show()
+    {
+        return view('password');
+    }
+
+    public function listPassword()
     {
         $passwords = Password::all();
-        return view('password.list', ['passwords' => $passwords]);
+        return new Response(json_encode($passwords));
     }
 
     public function addPassword(Request $request): object

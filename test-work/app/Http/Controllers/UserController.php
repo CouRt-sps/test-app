@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\User;
 
 class UserController extends Controller
 {
-    /**
-     * Отобразить список пользователей.
-     *
-     * @return \Illuminate\View\View
-     */
+    public function show()
+    {
+        return view('user');
+    }
+
     public function listUser()
     {
         $users = User::all();
-        return view('user.list', ['users' => $users]);
+        return new Response(json_encode($users));
     }
 
     /**

@@ -18,6 +18,12 @@ const app = createApp({});
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
 
+import PasswordList from './components/PasswordList.vue';
+app.component('password-list', PasswordList);
+
+import UserListComponent from './components/UserListComponent.vue';
+app.component('user-list', UserListComponent);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
