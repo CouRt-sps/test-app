@@ -7,6 +7,8 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
+//window.Vue = require('vue').default;
+
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -18,11 +20,11 @@ const app = createApp({});
 import ExampleComponent from './components/ExampleComponent.vue';
 app.component('example-component', ExampleComponent);
 
-import PasswordList from './components/PasswordList.vue';
-app.component('password-list', PasswordList);
+import PasswordListComponent from "./components/PasswordListComponent.vue";
+app.component('password-list-components', PasswordListComponent)
 
-import UserListComponent from './components/UserListComponent.vue';
-app.component('user-list', UserListComponent);
+import UserListComponent from "./components/UserListComponent.vue";
+app.component('user-list-component', UserListComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -43,3 +45,7 @@ app.component('user-list', UserListComponent);
  */
 
 app.mount('#app');
+
+// const app = new Vue({
+//     el: '#app'
+// })

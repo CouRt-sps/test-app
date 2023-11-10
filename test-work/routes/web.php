@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PasswordGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +23,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/password', [PasswordController::class, 'show'])->name('show');
-Route::get('/passwords', [PasswordController::class, 'listPassword']);
 Route::get('/user', [UserController::class, 'show']);
-Route::get('/users', [UserController::class, 'listUser']);

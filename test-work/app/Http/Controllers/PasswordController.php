@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Password;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
 {
@@ -19,26 +20,26 @@ class PasswordController extends Controller
         return new Response(json_encode($passwords));
     }
 
-    public function addPassword(Request $request): object
+    public function addPassword(Request $request)
     {
         $title = $request->get('title');
         $value = $request->get('password');
-        $group = $request->get('group.id');
-        $user = $request->get('user.id');
+        $group = $request->get('selectedGroup');
+        $user = $request->get('userId');
         $access = $request->get('access');
 
         $password = new Password();
         $password->title = $title;
-        $password->password = $value;
+        $password->password = Hash::make($value);
         $password->group_id = $group;
         $password->user_id = $user;
         $password->access = $access;
 
         $password->save();
-        return redirect()->route('password.list')->with('success', 'Пользователь успешно добавлен.');
+        //return redirect()->route('show')->with('success', 'Пользователь успешно добавлен.');
     }
 
-    public function updateUser(Request $request, $id)
+    public function updatePassword(Request $request, $id)
     {
         $title = $request->get('title');
         $value = $request->get('password');

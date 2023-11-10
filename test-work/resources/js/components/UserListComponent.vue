@@ -1,5 +1,8 @@
 <template>
     <div>
+        <CreateUserComponent></CreateUserComponent>
+    </div>
+    <div>
         <h2>Users list</h2>
         <table class="table">
             <thead>
@@ -13,36 +16,43 @@
             </tr>
             </thead>
             <tbody>
-            <template v-for="user in users">
-                <tr>
-                    <td scope="row">{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
-                    <td>{{ user.created_at }}</td>
-                    <td>{{ user.updated_at }}</td>
-                    <td><a href="#" @click.prevent="changeEditUserId(user.id)" class="btn btn-success">Edit</a></td>
-                </tr>
-                <tr :class="isEdit(user.id) ? '' : 'd-none'">
-                    <td scope="row">{{ user.id }}</td>
-                    <td><input type="text" class="form-control"></td>
-                    <td><input type="email" class="form-control"></td>
-                    <td><input type="text" class="form-control"></td>
-                    <td><a href="#" @click.prevent="changeEditUserId(null)" class="btn btn-success">Update</a></td>
-                </tr>
-            </template>
+                <template v-for="user in users">
+                    <tr>
+                        <td scope="row">{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.created_at }}</td>
+                        <td>{{ user.updated_at }}</td>
+                        <td><a href="#" @click.prevent="changeEditUserId(user.id, user.name, user.email, user.role)" class="btn btn-success">Edit</a></td>
+                    </tr>
+                    <tr :class="isEdit(user.id) ? '' : 'd-none'">
+                        <td scope="row">{{ user.id }}</td>
+                        <td><input type="text" v-model="name" class="form-control"></td>
+                        <td><input type="email" v-model="email" class="form-control"></td>
+                        <td><input type="text" v-model="role" class="form-control"></td>
+                        <td><a href="#" @click.prevent="updateUser()" class="btn btn-success">Update</a></td>
+                    </tr>
+                </template>
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
-import CreateGroupComponent from "./CreateGroupComponent.vue";
+
+import CreateUserComponent from "./CreateUserComponent.vue";
+
 export default {
+    name: "UserListComponent",
+
     data() {
         return {
             users: null,
             editUserId: null,
+            name: '',
+            email: '',
+            role: '',
         };
     },
     mounted() {
@@ -50,20 +60,25 @@ export default {
     },
     methods: {
         getUsers() {
-            axios.get('/users')
+            axios.get('/api/users')
                 .then( data => {
                     this.users = data.data
                 })
-                .catch( error => {
+        },
 
-                })
-                .finally( {
-
+        updateUser() {
+            this.editUserId = null
+            axios.put('/api/users', {id: this.editUserId, name: this.name, email: this.email, role: this.role})
+                .then( res => {
+                    console.log(res);
                 })
         },
 
-        changeEditUserId(id) {
+        changeEditUserId(id, name, email, role) {
             this.editUserId = id
+            this.name = name
+            this.email = email
+            this.role = role
         },
 
         isEdit(id) {
@@ -71,5 +86,9 @@ export default {
         }
 
     },
+
+    components: {
+        CreateUserComponent,
+    }
 };
 </script>

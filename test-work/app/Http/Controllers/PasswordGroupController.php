@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PasswordGroup;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PasswordGroupController extends Controller
 {
@@ -19,6 +20,7 @@ class PasswordGroupController extends Controller
     public function listGroup()
     {
         $groups = PasswordGroup::all();
-        return view('password.list', ['groups' => $groups]);
+        //return view('password.list', ['groups' => $groups]);
+        return new Response(json_encode($groups));
     }
 }

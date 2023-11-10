@@ -6,6 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -29,35 +30,30 @@ class UserController extends Controller
     public function addUser(Request $request)
     {
         $role = $request->get('role');
+        $name = $request->get('name');
         $email = $request->get('email');
         $password = $request->get('password');
 
         $user = new User();
         $user->role = $role;
+        $user->name = $name;
         $user->email = $email;
-        $user->password = $password;
+        $user->password = Hash::make($password);
         $user->email_verified_at = now();
         $user->remember_token = Str::random(10);
 
         $user->save();
-        return redirect()->route('user.list')->with('success', 'Пользователь успешно добавлен.');
+        //return redirect()->route('show')->with('success', 'Пользователь успешно добавлен.');
     }
 
-    /**
-     * Обновить пользователя.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return void
-     */
-    public function updateUser(Request $request, $id)
+    public function updateUser(Request $request)
     {
-        $role = $request->get('role');
+        $name = $request->get('name');
         $email = $request->get('email');
-        $password = $request->get('password');
-        //$id = $request->get('id');
+        $role = $request->get('role');
+        $id = $request->get('id');
 
-        $user = User::find($id)->update(['role' => $role, 'email' => $email, 'password' => $password]);
+        $user = User::find($id)->update(['name' => $name, 'email' => $email, 'role' => $role]);
     }
 
     /**

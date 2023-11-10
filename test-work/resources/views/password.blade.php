@@ -5,10 +5,10 @@
         <a href="/user">Пользователи</a>
     @endif
     <div id="app" class="p-5">
-        <password-list></password-list>
+        <password-list-components></password-list-components>
     </div>
 
 @endsection
 <script>
-    window.authUserId = {{ Auth::id() }};
+    window.authUserId = {{ Auth::id() }}
 </script>
