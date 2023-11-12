@@ -3,7 +3,7 @@
         <CreateUserComponent></CreateUserComponent>
     </div>
     <div>
-        <h2>Users list</h2>
+        <h2>Список пользователей</h2>
         <table class="table">
             <thead>
             <tr>
@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 <template v-for="user in users">
-                    <tr>
+                    <tr :class="isEdit(user.id) ? 'd-none' : ''">
                         <td scope="row">{{ user.id }}</td>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
@@ -30,8 +30,13 @@
                         <td scope="row">{{ user.id }}</td>
                         <td><input type="text" v-model="name" class="form-control"></td>
                         <td><input type="email" v-model="email" class="form-control"></td>
-                        <td><input type="text" v-model="role" class="form-control"></td>
-                        <td><a href="#" @click.prevent="updateUser()" class="btn btn-success">Update</a></td>
+                        <td>
+                            <select class="form-select" v-model="role" id="access" required>
+                                <option value="admin">admin</option>
+                                <option value="user">user</option>
+                            </select>
+                        </td>
+                        <td><a href="#" @click.prevent="updateUser(user.id)" class="btn btn-success">Update</a></td>
                     </tr>
                 </template>
             </tbody>
@@ -56,7 +61,7 @@ export default {
         };
     },
     mounted() {
-        this.getUsers();
+        this.getUsers()
     },
     methods: {
         getUsers() {
@@ -66,11 +71,11 @@ export default {
                 })
         },
 
-        updateUser() {
+        updateUser(id) {
             this.editUserId = null
-            axios.put('/api/users', {id: this.editUserId, name: this.name, email: this.email, role: this.role})
+            axios.patch(`/api/users/${id}`, {id: this.editUserId, name: this.name, email: this.email, role: this.role})
                 .then( res => {
-                    console.log(res);
+                    this.getUsers()
                 })
         },
 

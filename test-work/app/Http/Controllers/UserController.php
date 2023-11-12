@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordGroup\StoreRequest;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -46,14 +47,11 @@ class UserController extends Controller
         //return redirect()->route('show')->with('success', 'Пользователь успешно добавлен.');
     }
 
-    public function updateUser(Request $request)
+    public function updateUser(StoreRequest $request, User $user)
     {
-        $name = $request->get('name');
-        $email = $request->get('email');
-        $role = $request->get('role');
-        $id = $request->get('id');
-
-        $user = User::find($id)->update(['name' => $name, 'email' => $email, 'role' => $role]);
+        $data = $request->validated();
+        $user->update($data);
+        return $user;
     }
 
     /**
