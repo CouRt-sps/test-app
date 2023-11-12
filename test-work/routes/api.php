@@ -32,3 +32,4 @@ Route::get('/generation', [PasswordController::class, 'generationPassword']);
 Route::get('/users', [UserController::class, 'listUser']);
 Route::post('/users', [UserController::class, 'addUser']);
 Route::patch('/users/{user}', [UserController::class, 'updateUser']);
+Route::delete('/users/{user}', [UserController::class, 'deleteUser']);

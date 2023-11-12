@@ -25,6 +25,7 @@
                         <td>{{ user.created_at }}</td>
                         <td>{{ user.updated_at }}</td>
                         <td><a href="#" @click.prevent="changeEditUserId(user.id, user.name, user.email, user.role)" class="btn btn-success">Edit</a></td>
+                        <td><a href="#" @click.prevent="deleteUser(user.id)" class="btn btn-danger">Delete</a></td>
                     </tr>
                     <tr :class="isEdit(user.id) ? '' : 'd-none'">
                         <td scope="row">{{ user.id }}</td>
@@ -74,6 +75,13 @@ export default {
         updateUser(id) {
             this.editUserId = null
             axios.patch(`/api/users/${id}`, {id: this.editUserId, name: this.name, email: this.email, role: this.role})
+                .then( res => {
+                    this.getUsers()
+                })
+        },
+
+        deleteUser(id) {
+            axios.delete(`/api/users/${id}`)
                 .then( res => {
                     this.getUsers()
                 })

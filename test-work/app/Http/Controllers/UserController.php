@@ -54,15 +54,9 @@ class UserController extends Controller
         return $user;
     }
 
-    /**
-     * Удалить пользователя.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function deleteUser($id)
+    public function deleteUser(User $user)
     {
-        $user = User::where('id', '=', $id)->delete();
-        return redirect()->route('user-list')->with('success', 'Пользователь успешно удален.');
+        $user->delete();
+        return response([]);
     }
 }

@@ -4,7 +4,7 @@
         <CreatePasswordComponent></CreatePasswordComponent>
     </div>
     <div>
-        <h2>Password List</h2>
+        <h2>Список паролей</h2>
         <table class="table" v-if="passwords">
             <thead>
             <tr>
@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 <template v-for="password in accessForMe">
-                    <tr>
+                    <tr :class="isEdit(password.id) ? 'd-none' : ''">
                         <td scope="row">{{ password.id }}</td>
                         <td>{{ password.title }}</td>
                         <td>{{ password.password }}</td>
