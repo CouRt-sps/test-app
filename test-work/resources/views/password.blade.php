@@ -2,7 +2,7 @@
 
 @section('content')
     @if(auth()->check() && auth()->user()->role === 'admin')
-        <a href="/user">Пользователи</a>
+        <a href="/user">Управление пользователями</a>
     @endif
     <div id="app" class="p-5">
         <password-list-components></password-list-components>
@@ -10,5 +10,6 @@
 
 @endsection
 <script>
-    window.authUserId = {{ Auth::id() }}
+    window.authUserId = {{ Auth::id() }};
+    window.authUserRole = '{{ auth()->user()->role }}';
 </script>

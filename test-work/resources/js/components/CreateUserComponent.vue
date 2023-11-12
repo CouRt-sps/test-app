@@ -2,11 +2,11 @@
     <div class="w-25">
         <h3>Добавить пользователя</h3>
         <div class="mb-12 d-flex">
-            <input type="text" class="form-control-lg me-3" v-model="name" id="name" placeholder="Имя" required>
-            <input type="email" class="form-control-lg me-3" v-model="email" id="name" placeholder="Email" required>
-            <input type="text" class="form-control-lg me-3" v-model="password" id="name" placeholder="Пароль" required>
-            <label for="role" class="me-3">Выберите role:</label>
+            <input type="text" class="form-control-lg me-2" v-model="name" id="name" placeholder="Имя" required>
+            <input type="email" class="form-control-lg me-2" v-model="email" id="name" placeholder="Email" required>
+            <input type="text" class="form-control-lg me-2" v-model="password" id="name" placeholder="Пароль" required>
             <select class="form-select-lg" v-model="role" id="role" required>
+                <option value="" selected disabled>Выберите role</option>
                 <option value="admin">admin</option>
                 <option value="user">user</option>
             </select>

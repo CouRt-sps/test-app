@@ -29,7 +29,7 @@
                         <td>{{ password.access }}</td>
                         <td>{{ password.created_at }}</td>
                         <td>{{ password.updated_at }}</td>
-                        <td><a href="#" @click.prevent="changeEditPasswordId(password.id, password.title, password.password,)" class="btn btn-success">Edit</a></td>
+                        <td><a v-if="authUserRole === 'admin'" href="#" @click.prevent="changeEditPasswordId(password.id, password.title, password.password,)" class="btn btn-success">Edit</a></td>
                     </tr>
                     <tr :class="isEdit(password.id) ? '' : 'd-none'">
                         <td scope="row">{{ password.id }}</td>
@@ -68,6 +68,7 @@ export default {
             title: '',
             pass: '',
             editPasswordId: null,
+            authUserRole: window.authUserRole,
         }
     },
     mounted() {
