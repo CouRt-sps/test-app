@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PasswordGroup extends Model
 {
@@ -12,7 +13,7 @@ class PasswordGroup extends Model
 
     protected $fillable = ['name'];
 
-    public function passwords()
+    public function passwords(): HasMany
     {
         return $this->hasMany(Password::class, 'group_id');
     }

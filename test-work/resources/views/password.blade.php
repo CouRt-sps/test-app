@@ -2,7 +2,7 @@
 
 @section('content')
     @if(auth()->check() && auth()->user()->role === 'admin')
-        <a href="/user">Управление пользователями</a>
+        <a href="/user" class="h5">Управление пользователями</a>
     @endif
     <div id="app" class="p-5">
         <password-list-components></password-list-components>

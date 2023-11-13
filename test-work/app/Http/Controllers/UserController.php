@@ -11,12 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function show()
+    public function show(): \Illuminate\View\View
     {
         return view('user');
     }
 
-    public function listUser()
+    public function listUser(): Response
     {
         $users = User::all();
         return new Response(json_encode($users));
@@ -28,7 +28,7 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function addUser(Request $request)
+    public function addUser(Request $request): void
     {
         $role = $request->get('role');
         $name = $request->get('name');
@@ -44,17 +44,16 @@ class UserController extends Controller
         $user->remember_token = Str::random(10);
 
         $user->save();
-        //return redirect()->route('show')->with('success', 'Пользователь успешно добавлен.');
     }
 
-    public function updateUser(StoreRequest $request, User $user)
+    public function updateUser(StoreRequest $request, User $user): User
     {
         $data = $request->validated();
         $user->update($data);
         return $user;
     }
 
-    public function deleteUser(User $user)
+    public function deleteUser(User $user): Response
     {
         $user->delete();
         return response([]);

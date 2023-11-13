@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 
 class PasswordGroupController extends Controller
 {
-    public function addGroup(Request $request)
+    public function addGroup(Request $request): void
     {
         $group = $request->get('name');
 
@@ -17,10 +17,9 @@ class PasswordGroupController extends Controller
         $passwordGroup->save();
     }
 
-    public function listGroup()
+    public function listGroup(): Response
     {
         $groups = PasswordGroup::all();
-        //return view('password.list', ['groups' => $groups]);
         return new Response(json_encode($groups));
     }
 }

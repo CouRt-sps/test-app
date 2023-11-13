@@ -2,27 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PasswordGroup\AddPasswordRequest;
 use App\Http\Requests\PasswordGroup\PasswordRequest;
 use App\Models\Password;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
 {
-    public function show()
+    public function show(): \Illuminate\View\View
     {
         return view('password');
     }
 
-    public function listPassword()
+    public function listPassword(): Response
     {
         $passwords = Password::all();
         return new Response(json_encode($passwords));
     }
 
-    public function addPassword(Request $request)
+    public function addPassword(Request $request): void
     {
         $title = $request->get('title');
         $value = $request->get('password');
@@ -40,7 +38,7 @@ class PasswordController extends Controller
         $password->save();
     }
 
-    public function updatePassword(PasswordRequest $request, Password $password)
+    public function updatePassword(PasswordRequest $request, Password $password): Password
     {
         $data = $request->validated();
         $password->update($data);

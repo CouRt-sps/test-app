@@ -21,9 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::group(['namespace' => 'PasswordGroup', 'prefix' => 'group'], function () {
-//    Route::post('/', [StoreController::class]);
-//});
 Route::post('/group', [PasswordGroupController::class, 'addGroup'])->name('add.group');
 Route::get('/group', [PasswordGroupController::class, 'listGroup']);
 Route::get('/passwords', [PasswordController::class, 'listPassword']);
