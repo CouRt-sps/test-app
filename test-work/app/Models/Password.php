@@ -12,9 +12,9 @@ class Password extends Model
     protected $fillable = [
         'title',
         'password',
-        'group_id',
-        'user_id',
         'access',
+        'user_id',
+        'group_id',
     ];
 
     public function group()

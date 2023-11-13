@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('password');
-            $table->unsignedBigInteger('group_id')->nullable();
-            $table->unsignedBigInteger('user_id');
             $table->enum('access', ['to_all', 'only_me'])->default('to_all');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('group_id')->nullable();
+
             $table->timestamps();
 
             $table->foreign('group_id')->references('id')->on('password_groups');

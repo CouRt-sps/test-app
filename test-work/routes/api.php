@@ -28,6 +28,7 @@ Route::post('/group', [PasswordGroupController::class, 'addGroup'])->name('add.g
 Route::get('/group', [PasswordGroupController::class, 'listGroup']);
 Route::get('/passwords', [PasswordController::class, 'listPassword']);
 Route::post('/passwords', [PasswordController::class, 'addPassword'])->name('add.password');
+Route::patch('/passwords/{password}', [PasswordController::class, 'updatePassword']);
 Route::get('/generation', [PasswordController::class, 'generationPassword']);
 Route::get('/users', [UserController::class, 'listUser']);
 Route::post('/users', [UserController::class, 'addUser']);

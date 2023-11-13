@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Password>
  */
-class PasswordFactory extends Factory
+class PasswordGroupFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,11 +17,7 @@ class PasswordFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->title,
-            'password' => $this->faker->regexify('[A-Za-z0-9]{8,15}'),
-            'access' => $this->faker->randomElement(['to_all', 'only_me']),
-            'user_id' => $this->faker->numberBetween(1, 5),
-            'group_id' => $this->faker->optional()->numberBetween(1, 3)
+            'name' => 'group' . $this->faker->unique()->numberBetween(1, 3),
         ];
     }
 }

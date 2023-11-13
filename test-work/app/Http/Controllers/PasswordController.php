@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordGroup\AddPasswordRequest;
+use App\Http\Requests\PasswordGroup\PasswordRequest;
 use App\Models\Password;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,24 +32,19 @@ class PasswordController extends Controller
 
         $password = new Password();
         $password->title = $title;
-        $password->password = Hash::make($value);
+        $password->password = $value;
         $password->group_id = $group;
         $password->user_id = $user;
         $password->access = $access;
 
         $password->save();
-        //return redirect()->route('show')->with('success', 'Пользователь успешно добавлен.');
     }
 
-    public function updatePassword(Request $request, $id)
+    public function updatePassword(PasswordRequest $request, Password $password)
     {
-        $title = $request->get('title');
-        $value = $request->get('password');
-        $group = $request->get('group.id');
-        $access = $request->get('access');
-        //$id = $request->get('id');
-
-        $password = Password::find($id)->update(['title' => $title, 'password' => $value, 'group_id' => $group, 'access' => $access]);
+        $data = $request->validated();
+        $password->update($data);
+        return $password;
     }
 
     public function generationPassword(): string

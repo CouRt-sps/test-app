@@ -32,7 +32,7 @@
                         <td><input type="text" v-model="name" class="form-control"></td>
                         <td><input type="email" v-model="email" class="form-control"></td>
                         <td>
-                            <select class="form-select" v-model="role" id="access" required>
+                            <select class="form-select" v-model="role" id="role" required>
                                 <option value="admin">admin</option>
                                 <option value="user">user</option>
                             </select>
