@@ -3,6 +3,13 @@
         <CreateGroupComponent></CreateGroupComponent>
         <CreatePasswordComponent></CreatePasswordComponent>
     </div>
+    <div class="mb-3 w-25">
+        <label for="groupSelect">Фильтр по группам</label>
+        <select class="form-select" v-model="groupSelect" id="groupSelect">
+            <option value="" selected>Без фильтрации по группе</option>
+            <option v-for="group in groups" :value="group.id">{{group.id}}-{{ group.name }}</option>
+        </select>
+    </div>
     <div>
         <h2>Список паролей</h2>
         <table class="table" v-if="passwords">
@@ -13,7 +20,7 @@
                 <th scope="col">Password</th>
                 <th scope="col">Access</th>
                 <th scope="col">User ID</th>
-                <th scope="col">Group</th>
+                <th scope="col">Group ID</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Updated At</th>
             </tr>
@@ -72,6 +79,7 @@ export default {
             editPasswordId: null,
             access: '',
             group_id: null,
+            groupSelect: null,
             authUserRole: window.authUserRole,
         }
     },
@@ -123,8 +131,10 @@ export default {
     },
     computed: {
         accessForMe() {
+            const self = this
             return this.passwords.filter(function (password) {
-                return password.access === 'to_all' || password.user_id === authUserId;
+                return ((password.access === 'to_all' || password.user_id === authUserId) &&
+                    (self.groupSelect ? password.group_id === self.groupSelect : true))
             })
         }
     },
